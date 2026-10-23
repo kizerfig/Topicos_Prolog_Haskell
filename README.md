@@ -1,7 +1,7 @@
 # Motor Analítico de Gestión de Vuelos e Itinerarios Interurbanos (LogiExpress)
 
 **Asignatura:** Tópicos Especiales de Programación  
-**Profesoras:** Jannelly Bello / Noraimar Mora  
+**Profesora:** Jannelly Bello  
 **Institución / Cátedra:** Cátedra de Tópicos Especiales de Programación  
 
 ---
@@ -178,9 +178,8 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
 
 - **Desarrollo Progresivo:** Queda prohibida la entrega en commits masivos de última hora. El historial del proyecto refleja un ciclo de vida evolutivo a lo largo de las 3 semanas de desarrollo.
 - **Convenio de Commits:** Mensajes con estándar formal descriptivo (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`).
-- **Colaboradores Docentes:**
+- **Colaboradora Docente:**
   - Prof. Jannelly Bello (`jbelloch@gmail.com`)
-  - Prof. Noraimar Mora (`Noraimar.mora@gmail.com`)
 - **Hito de Entrega Final:**
   - **Fecha Límite:** `08/11/2026`
   - **Mecanismo de Cierre:** Congelamiento de la rama `main` y emisión del tag formal de versión:

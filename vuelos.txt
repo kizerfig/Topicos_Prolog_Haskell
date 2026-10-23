@@ -1,0 +1,20 @@
+Pto Ordaz|Maiquetia|07:00|08:00|5600|Vlo#1|Diario
+Maiquetia|Porlamar|09:00|10:00|4800|Vlo#2|L-M-Mi-J-V
+Maiquetia|Pto Ordaz|15:00|16:00|5300|Vlo#3|L-M-V
+Pto Ordaz|Maracaibo|13:00|15:00|9000|Vlo#4|Diario
+Maracaibo|Maiquetia|17:00|18:00|5500|Vlo#5|Diario
+Pto Ordaz|Valencia|11:00|12:30|6700|Vlo#6|Diario
+Maracaibo|Valencia|08:00|08:45|4700|Vlo#7|Diario
+Porlamar|Maracaibo|02:00|03:30|5900|Vlo#8|Diario
+Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
+Maiquetia|Barquisimeto|06:30|07:30|4200|Vlo#10|Diario
+Barquisimeto|Maracaibo|08:30|09:30|3900|Vlo#11|L-M-Mi-J-V
+Barquisimeto|Maiquetia|18:00|19:00|4500|Vlo#12|L-Mi-V
+Valencia|Barquisimeto|10:00|11:00|3200|Vlo#13|Diario
+Maiquetia|Barcelona|11:00|11:50|4100|Vlo#14|Diario
+Barcelona|Porlamar|13:00|13:40|3500|Vlo#15|Diario
+Barcelona|Pto Ordaz|14:30|15:30|4600|Vlo#16|M-J-S
+Maiquetia|San Antonio|07:00|08:30|8500|Vlo#17|L-Mi-V
+San Antonio|Maracaibo|09:45|10:45|6100|Vlo#18|L-Mi-V
+Maracaibo|San Antonio|12:00|13:00|6300|Vlo#19|M-J-S
+San Antonio|Maiquetia|15:00|16:30|8800|Vlo#20|Diario
