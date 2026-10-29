@@ -169,7 +169,7 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
 | Nombre y Apellido | Cédula de Identidad | Usuario de GitHub | Correo Electrónico | Responsabilidad Principal |
 | :--- | :---: | :---: | :--- | :--- |
 | *Kizer Ellioth* | *31912473* | https://github.com/kizerfig | *kizerelliooth@gmail.com* | Módulo 1 (Carga y Parseo) / CLI |
-| *Garcia Barbara* | *67* | bardxx | *@gmail.com* | Módulo 2 (Motor de Rutas y Restricciones) |
+| *Garcia Barbara* | *67* | https://github.com/bardxx | *@gmail.com* | Módulo 2 (Motor de Rutas y Restricciones) |
 | *Rivas Eduardo* | *31384817* | https://github.com/Mox2kk | *ejrd1705@gmail.com* | Módulo 3 (Optimización y Ordenamiento) / Informe |
 
 ---
