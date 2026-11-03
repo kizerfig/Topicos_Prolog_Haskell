@@ -162,7 +162,7 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
 | :--- | :--- | :---: |
 | **Kizer Ellioth** | **Módulo 1:** Carga, Parseo, TMC y Consultas Básicas + Menú CLI | `Completado` (Prolog y Haskell base) |
 | **Garcia Barbara** | **Módulo 2:** Motor de Búsqueda Avanzada de Rutas y Restricciones | `Pendiente` (Por iniciar) |
-| **Rivas Eduardo** | **Módulo 3:** Optimización, Ordenamiento e Informe Técnico | `Pendiente` (Por iniciar) |
+| **Rivas Eduardo** | **Módulo 3:** Optimización, Ordenamiento e Informe Técnico | `En progreso` (Prolog completado; Haskell e Informe pendientes) |
 
 ---
 
@@ -179,6 +179,11 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
   - Menú interactivo CLI con 9 opciones y puntos de entrada oficiales `iniciar/0` y `menu/0`.
   - Opciones 1, 2, 3 y 4 completamente funcionales y vinculadas a `parser.pl`.
   - Arquitectura desacoplada: opciones 5 a 8 preparadas con detección dinámica de `rutas.pl` y `optimizacion.pl`.
+- **`prolog/optimizacion.pl` (Rivas Eduardo):**
+  - Métricas de ruta: `costo_total_ruta/2` (suma recursiva con acumulador) y `tiempo_total_viaje/2` (llegada del último vuelo − salida del primero, incluye esperas en escala).
+  - **Quicksort** propio sobre listas de rutas, sin funciones de ordenamiento de la librería (`quicksort_por_costo/2`, `quicksort_por_tiempo/2`); ascendente y estable.
+  - Selección de óptimos con acumulador: `mejor_ruta_costo/3` y `mejor_ruta_tiempo/3` (en empate conserva la primera ruta encontrada).
+  - Probado con rutas armadas a mano sobre `vuelos.txt`. Las opciones 6, 7 y 8 del menú se activarán cuando `rutas.pl` (Módulo 2) esté disponible.
 
 ### 8.2. Implementado en Haskell (Paradigma Funcional)
 - **`haskell/Tipos.hs` (Kizer Ellioth):**
@@ -223,16 +228,7 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
 ### 🔹 Para Eduardo Rivas (Módulo 3: Optimización, Ordenamiento e Informe)
 
 #### 1. En Prolog (`prolog/optimizacion.pl`):
-- Crear `prolog/optimizacion.pl` importando `parser.pl` y `rutas.pl`.
-- Implementar cálculo de métricas:
-  - `costo_total_ruta(+Ruta, -CostoTotal)`: Sumatoria de precios de boletos.
-  - `tiempo_total_viaje(+Ruta, -DuracionMinutos)`: $\text{LlegadaDestino} - \text{SalidaOrigen}$.
-- Implementar algoritmo propio de **Quicksort** sobre listas:
-  - `quicksort_por_costo(+ListaRutas, -RutasOrdenadas)`
-  - `quicksort_por_tiempo(+ListaRutas, -RutasOrdenadas)`
-- Predicados de selección de óptimos:
-  - `mejor_ruta_costo(+ListaRutas, -MejorRuta, -CostoMinimo)`
-  - `mejor_ruta_tiempo(+ListaRutas, -MejorRuta, -TiempoMinimo)`
+- Pendiente: prueba de integración final con `rutas.pl` desde el menú (opciones 5 a 8) cuando el Módulo 2 esté listo.
 
 #### 2. En Haskell (`haskell/Optimizacion.hs`):
 - Crear `haskell/Optimizacion.hs` importando `Tipos`.
