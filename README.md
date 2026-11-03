@@ -17,7 +17,7 @@ El núcleo del motor resuelve de manera exhaustiva el problema de determinación
 - **Topes operacionales:** Filtro y delimitación de número máximo de escalas ($K$).
 - **Optimización multicriterio:** Determinación de rutas de costo económico mínimo y rutas de menor tiempo total de viaje (incluyendo tiempos de vuelo y esperas en escala), apoyándose en algoritmos de ordenamiento sobre listas.
 
-El proyecto está implementado bajo dos paradigmas de programación complementarios:
+El proyecto está implementado obligatoriamente bajo dos paradigmas de programación complementarios:
 1. **Paradigma Lógico (Prolog):** Basado en cláusulas de Horn, unificación, motor de resolución SLD, backtracking cronológico, acumuladores para detección de ciclos y meta-predicados de recopilación de soluciones (`findall/3`, `bagof/3`, `setof/3`).
 2. **Paradigma Funcional (Haskell):** Basado en inmutabilidad de datos, evaluación perezosa (*lazy evaluation*), tipos algebraicos fuertemente tipados, funciones de alto orden (`map`, `filter`, `foldl`/`foldr`), *list comprehensions* y composición pura de funciones sobre estructuras de grafos inmutables.
 
@@ -29,7 +29,7 @@ El proyecto mantiene una estructura modular y limpia conforme a las directrices 
 
 ```ascii
 LogiExpressGrupoXX/
-├── README.md              # Documentación central, instrucciones de compilación y estado
+├── README.md              # Documentación central, estado del proyecto y asignación de tareas
 ├── vuelos.txt             # Base de datos plana delimitada por '|' con la información de vuelos
 ├── .gitignore             # Exclusión de binarios y artefactos intermedios (.o, .hi, etc.)
 ├── /haskell               # Solución en Paradigma Funcional (Módulo Main + CLI interactivo)
@@ -78,7 +78,7 @@ Ambas soluciones proveen un **Menú Interactivo en Consola (CLI)** que guía al 
 
 ### 4.1. Ejecución en Prolog (Paradigma Lógico)
 
-1. Abrir la terminal y posicionarse en el directorio del proyecto o dentro de `/prolog`:
+1. Abrir la terminal y posicionarse dentro de `/prolog`:
    ```bash
    cd prolog
    ```
@@ -92,7 +92,7 @@ Ambas soluciones proveen un **Menú Interactivo en Consola (CLI)** que guía al 
    % O alternativamente:
    ?- menu.
    ```
-4. *(Opcional)* Ejecución directa en una sola línea desde la terminal del sistema operativo:
+4. *(Opcional)* Ejecución directa en una sola línea desde la terminal:
    ```bash
    swipl -s main.pl -g iniciar -t halt
    ```
@@ -113,21 +113,15 @@ Ambas soluciones proveen un **Menú Interactivo en Consola (CLI)** que guía al 
    ghci> main
    ```
 
-#### Modo Compilado (Binario de Alto Desempeño)
+#### Modo Compilado (Binario)
 1. Compilar el ejecutable optimizado con GHC:
    ```bash
    cd haskell
    ghc -O2 --make Main.hs -o LogiExpressCLI
    ```
 2. Ejecutar el binario generado:
-   - **En Linux / macOS:**
-     ```bash
-     ./LogiExpressCLI
-     ```
-   - **En Windows:**
-     ```powershell
-     .\LogiExpressCLI.exe
-     ```
+   - **En Linux / macOS:** `./LogiExpressCLI`
+   - **En Windows:** `.\LogiExpressCLI.exe`
 
 ---
 
@@ -137,7 +131,7 @@ Ambas soluciones proveen un **Menú Interactivo en Consola (CLI)** que guía al 
 | :---: | :--- | :--- | :--- |
 | **Módulo 1** | **Carga Dinámica, Configuración TMC y Consultas Básicas** | • Lectura y parseo del archivo `vuelos.txt` (delimitado por `\|`).<br>• Asignación global de la ventana TMC en minutos (ej. 45 min).<br>• Consultas elementales de partidas y llegadas por ciudad $C$. | • **Prolog:** Aserción dinámica de hechos (`assertz/1`), manipulación de streams y conversión de cadenas de hora `HH:MM` a minutos absolutos.<br>• **Haskell:** Modelado de tipos algebraicos de datos (`data Vuelo`, `type Grafo`), manejo de I/O puro/impuro y procesamiento de texto con `lines` y `splitOn`. |
 | **Módulo 2** | **Búsqueda Avanzada de Rutas con Restricciones** | • Generación de rutas directas y con escalas entre Ciudad Origen y Ciudad Destino.<br>• Validación de compatibilidad con el día de la semana solicitado.<br>• Verificación de conexión: $\text{HoraSalida}(V_2) \ge \text{HoraLlegada}(V_1) + \text{TMC}$.<br>• Prevención de ciclos en el itinerario.<br>• Acotamiento opcional de escalas máximas ($K$). | • **Prolog:** Algoritmo DFS mediante reglas recursivas de backtracking, listas acumuladoras `[Cabeza\|Cola]` para nodos visitados y meta-predicados de recolección (`findall/3`, `setof/3`).<br>• **Haskell:** Algoritmo recursivo sobre grafos inmutables, *list comprehensions*, funciones de alto orden (`filter`, `foldr`) y composición modular de predicados de validación. |
-| **Módulo 3** | **Optimización y Filtrado de Itinerarios** | • **Ruta de Costo Mínimo:** Selección del itinerario con la menor suma de tarifas de boletos.<br>• **Ruta de Menor Tiempo Total:** Selección de la ruta con la menor duración integral (diferencia entre hora de llegada a destino y salida de origen, sumando esperas en tránsito).<br>• Reporte consolidado y ordenamiento de itinerarios por costo o duración. | • **Prolog:** Implementación nativa de algoritmos de ordenamiento sobre listas (`quicksort/3` o `mergesort/3`) y agregaciones aritméticas.<br>• **Haskell:** Uso de `Data.List.sortBy`, funciones de reducción (`foldl'`), funciones lambda de comparación y ordenamiento declarativo. |
+| **Módulo 3** | **Optimización y Filtrado de Itinerarios** | • **Ruta de Costo Mínimo:** Selección del itinerario con la menor suma de tarifas de boletos.<br>• **Ruta de Menor Tiempo Total:** Selección de la ruta con la menor duración integral (diferencia entre hora de llegada a destino y salida de origen, sumando esperas en tránsito).<br>• Reporte consolidado y ordenamiento de itinerarios por costo o duración. | • **Prolog:** Implementación nativa de algoritmos de ordenamiento sobre listas (`quicksort/3` o `mergesort/3`) y agregaciones aritméticas.<br>• **Haskell:** Algoritmo de ordenamiento funcional, reducción (`foldl'`), funciones lambda de comparación y selección de óptimos. |
 
 ---
 
@@ -162,29 +156,101 @@ Valencia|Porlamar|17:00|18:00|4300|Vlo#9|L-S-D
 
 ---
 
-## 7. Integrantes del Equipo y Contribuciones
+## 7. Integrantes del Equipo y Estado de Responsabilidades
 
-> **Nota:** En estricto cumplimiento de las normas de auditoría y trazabilidad del proyecto, cada miembro del equipo mantiene una actividad constante reflejada a través de commits formales e individuales en el repositorio.
-
-| Nombre y Apellido | Cédula de Identidad | Usuario de GitHub | Correo Electrónico | Responsabilidad Principal |
-| :--- | :---: | :---: | :--- | :--- |
-| *Kizer Ellioth* | *31912473* | https://github.com/kizerfig | *kizerelliooth@gmail.com* | Módulo 1 (Carga y Parseo) / CLI |
-| *Garcia Barbara* | *67* | https://github.com/bardxx | *@gmail.com* | Módulo 2 (Motor de Rutas y Restricciones) |
-| *Rivas Eduardo* | *31384817* | https://github.com/Mox2kk | *ejrd1705@gmail.com* | Módulo 3 (Optimización y Ordenamiento) / Informe |
+| Integrante | Rol y Módulo Asignado | Estado General |
+| :--- | :--- | :---: |
+| **Kizer Ellioth** | **Módulo 1:** Carga, Parseo, TMC y Consultas Básicas + Menú CLI | `Completado` (Prolog y Haskell base) |
+| **Garcia Barbara** | **Módulo 2:** Motor de Búsqueda Avanzada de Rutas y Restricciones | `Pendiente` (Por iniciar) |
+| **Rivas Eduardo** | **Módulo 3:** Optimización, Ordenamiento e Informe Técnico | `Pendiente` (Por iniciar) |
 
 ---
 
-## 8. Directrices de Auditoría y Entrega Final
+## 8. Estado Actual del Desarrollo (Lo que llevamos implementado)
 
-- **Desarrollo Progresivo:** Queda prohibida la entrega en commits masivos de última hora. El historial del proyecto refleja un ciclo de vida evolutivo a lo largo de las 3 semanas de desarrollo.
-- **Convenio de Commits:** Mensajes con estándar formal descriptivo (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`).
-- **Colaboradora Docente:**
-  - Prof. Jannelly Bello (`jbelloch@gmail.com`)
-- **Hito de Entrega Final:**
-  - **Fecha Límite:** `08/11/2026`
-  - **Mecanismo de Cierre:** Congelamiento de la rama `main` y emisión del tag formal de versión:
-    ```bash
-    git tag -a v1.0-final -m "Versión final auditada y lista para evaluación - 08/11/2026"
-    git push origin v1.0-final
-    ```
-  - **Informe Técnico:** Documento PDF con rigor formal de ingeniería cargado obligatoriamente en la ruta `/docs/Informe_Tecnico_Comparativo.pdf`.
+### 8.1. Implementado en Prolog (Paradigma Lógico)
+- **`prolog/parser.pl` (Kizer Ellioth):**
+  - Declaración y manejo de hechos dinámicos `vuelo/7` y `tmc_config/1`.
+  - Conversión bidireccional entre horas militares `HH:MM` y minutos absolutos del día (`hora_a_minutos/2`, `minutos_a_hora/2`).
+  - Configuración y consulta global del TMC (`obtener_tmc/1`, `establecer_tmc/1`).
+  - Carga dinámica desde archivo delimitado por `|` (`cargar_vuelos/1`, `cargar_vuelos_defecto/0`).
+  - Consultas de salidas (`vuelos_salen_de/2`) y llegadas (`vuelos_llegan_a/2`) mediante `findall/3`.
+- **`prolog/main.pl` (Kizer Ellioth):**
+  - Menú interactivo CLI con 9 opciones y puntos de entrada oficiales `iniciar/0` y `menu/0`.
+  - Opciones 1, 2, 3 y 4 completamente funcionales y vinculadas a `parser.pl`.
+  - Arquitectura desacoplada: opciones 5 a 8 preparadas con detección dinámica de `rutas.pl` y `optimizacion.pl`.
+
+### 8.2. Implementado en Haskell (Paradigma Funcional)
+- **`haskell/Tipos.hs` (Kizer Ellioth):**
+  - Tipos algebraicos `Dia` (`L | M | Mi | J | V | S | D | Diario`) y `Vuelo` (con *record syntax*).
+  - Sinónimos de tipos: `Ciudad`, `Minutos`, `Precio`, `CodigoVuelo`, `TMC`, `Grafo`, `Ruta`.
+  - Funciones puras de tiempo: `horaAMinutos`, `minutosAHora` y constante `tmcPorDefecto = 45`.
+- **`haskell/Parser.hs` (Kizer Ellioth):**
+  - Algoritmo puro de tokenización `splitOn :: Char -> String -> [String]`.
+  - Parseo funcional de líneas y frecuencias a tipos algebraicos (`parsearLinea`, `parsearDias`, `parsearDia`).
+  - Carga con I/O impuro a estructura de grafo inmutable (`cargarVuelos :: FilePath -> IO Grafo`).
+  - Consultas sobre listas mediante funciones de orden superior: `vuelosSalenDe` y `vuelosLleganA`.
+
+---
+
+## 9. Hoja de Ruta: Lo que falta por terminar por cada integrante
+
+### 🔹 Para Bárbara García (Módulo 2: Motor de Rutas y Restricciones)
+
+#### 1. En Prolog (`prolog/rutas.pl`):
+- Crear `prolog/rutas.pl` e importar `parser.pl` (`:- ensure_loaded('parser.pl').`).
+- Implementar el predicado principal:
+  ```prolog
+  buscar_rutas(+Origen, +Destino, +Dia, +MaxEscalas, -TodasLasRutas).
+  ```
+- Diseñar la búsqueda recursiva DFS con backtracking y recolección con `findall/3`.
+- Cumplir las 4 restricciones simultáneas:
+  1. **Compatibilidad de día:** Validar si el vuelo opera el día solicitado o es `Diario`.
+  2. **Ventana de conexión temporal:** Para dos vuelos consecutivos $V_1$ y $V_2$, verificar $\text{Salida}(V_2) \ge \text{Llegada}(V_1) + \text{TMC}$.
+  3. **Control de ciclos (Aciclicidad):** Acumulador de ciudades visitadas para no repetir ciudades en una ruta.
+  4. **Límite de escalas:** Si $K \ge 0$, no superar $K$ escalas intermedias (longitud de ruta $\le K + 1$).
+
+#### 2. En Haskell (`haskell/Rutas.hs`):
+- Crear `haskell/Rutas.hs` importando `Tipos`.
+- Implementar la función de búsqueda recursiva sobre grafos inmutables:
+  ```haskell
+  buscarRutas :: Grafo -> Ciudad -> Ciudad -> Dia -> Maybe Int -> TMC -> [Ruta]
+  ```
+- Utilizar *list comprehensions*, funciones de orden superior (`filter`, `foldr`) y prevención de ciclos en el camino acumulado.
+
+---
+
+### 🔹 Para Eduardo Rivas (Módulo 3: Optimización, Ordenamiento e Informe)
+
+#### 1. En Prolog (`prolog/optimizacion.pl`):
+- Crear `prolog/optimizacion.pl` importando `parser.pl` y `rutas.pl`.
+- Implementar cálculo de métricas:
+  - `costo_total_ruta(+Ruta, -CostoTotal)`: Sumatoria de precios de boletos.
+  - `tiempo_total_viaje(+Ruta, -DuracionMinutos)`: $\text{LlegadaDestino} - \text{SalidaOrigen}$.
+- Implementar algoritmo propio de **Quicksort** sobre listas:
+  - `quicksort_por_costo(+ListaRutas, -RutasOrdenadas)`
+  - `quicksort_por_tiempo(+ListaRutas, -RutasOrdenadas)`
+- Predicados de selección de óptimos:
+  - `mejor_ruta_costo(+ListaRutas, -MejorRuta, -CostoMinimo)`
+  - `mejor_ruta_tiempo(+ListaRutas, -MejorRuta, -TiempoMinimo)`
+
+#### 2. En Haskell (`haskell/Optimizacion.hs`):
+- Crear `haskell/Optimizacion.hs` importando `Tipos`.
+- Funciones puras de cálculo: `costoTotalRuta :: Ruta -> Precio` y `tiempoTotalViaje :: Ruta -> Minutos`.
+- Implementación de ordenamiento funcional de listas de rutas por costo y tiempo.
+- Funciones de óptimos: `mejorRutaCosto` y `mejorRutaTiempo`.
+
+#### 3. Informe Técnico Comparativo (`/docs/Informe_Tecnico_Comparativo.pdf`):
+- Elaborar documento académico formal (8 a 10 páginas) con:
+  - Portada, Introducción y Modelado de Datos.
+  - Funciones y predicados investigados en ambos paradigmas.
+  - Análisis comparativo: **Evaluación perezosa / Inmutabilidad (Haskell)** frente a **Unificación / Backtracking (Prolog)**.
+  - Resumen de actividades por integrante (coincidente con los commits).
+  - Capturas de ejecución en consola y conclusiones.
+
+---
+
+### 🔹 Integración Final y Cierre (Todo el Equipo)
+- **`haskell/Main.hs`:** Completar el menú interactivo en consola CLI conectando `Parser.hs`, `Rutas.hs` y `Optimizacion.hs`.
+- **Auditoría Git:** Verificar que los 3 integrantes cuenten con commits significativos y descriptivos.
+- **Tag Final:** Congelamiento de rama `main` y emisión de etiqueta `v1.0-final` antes de la fecha límite (08/11/2026).
