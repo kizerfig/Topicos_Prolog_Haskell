@@ -4,15 +4,14 @@ import Tipos
 import System.IO
 
 splitOn :: Char -> String -> [String]
-splitOn delim str = case dropWhile (== delim) str of
-    "" -> []
-    s' -> let (w, s'') = break (== delim) s'
-          in w : splitOn delim s''
+splitOn delim str = case break (== delim) str of
+    (elem, [])      -> [elem]
+    (elem, _:resto) -> elem : splitOn delim resto
 
 parsearDia :: String -> Dia
 parsearDia "L"      = L
 parsearDia "M"      = M
-parsearDia "Miercoles" = Mi
+parsearDia "Mi"     = Mi
 parsearDia "J"      = J
 parsearDia "V"      = V
 parsearDia "S"      = S
@@ -22,10 +21,10 @@ parsearDia d        = error ("Dia desconocido: " ++ d)
 
 parsearDias :: String -> [Dia]
 parsearDias "Diario" = [Diario]
-parsearDias str      = map parsearDia (splitOn '/' str)
+parsearDias str      = map parsearDia (splitOn '-' str)
 
 parsearLinea :: String -> Vuelo
-parsearLinea linea = case splitOn ',' linea of
+parsearLinea linea = case splitOn '|' linea of
     [orig, dest, salStr, llegStr, precStr, idV, diasStr] ->
         Vuelo
             { origen      = orig
@@ -49,4 +48,3 @@ vuelosSalenDe c grafo = filter (\v -> origen v == c) grafo
 
 vuelosLleganA :: Ciudad -> Grafo -> [Vuelo]
 vuelosLleganA c grafo = filter (\v -> destino v == c) grafo
-
