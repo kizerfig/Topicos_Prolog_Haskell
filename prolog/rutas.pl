@@ -57,3 +57,22 @@ buscar_ruta_dfs(Ciudad_Actual, Destino, Dia, Visitados, TMC, Escalas_Restantes, 
     Nuevas_Escalas is Escalas_Restantes - 1,
     buscar_ruta_dfs(Ciudad_Siguiente, Destino, Dia,
                     [Ciudad_Siguiente | Visitados], TMC, Nuevas_Escalas, Llegada, Resto_Ruta).
+
+
+% Predicado Publico: Recoleccion de Todas las Rutas
+
+%!  buscar_rutas(+Origen, +Destino, +Dia, +Max_Escalas, -Todas_Las_Rutas)
+%   Recolecta con findall/3 todas las rutas validas entre Origen y Destino.
+%   Max_Escalas indica el maximo de ciudades intermedias permitidas (0 = solo vuelo directo).
+
+buscar_rutas(Origen, Destino, Dia, Max_Escalas, Todas_Las_Rutas) :-
+    obtener_tmc(TMC),
+    Limite_Saltos is Max_Escalas + 1,
+    findall(
+        Ruta,
+        buscar_ruta_dfs(Origen, Destino, Dia, [Origen], TMC, Limite_Saltos, 0, Ruta),
+        Todas_Las_Rutas
+    ).
+
+% buscar_rutas('Pto Ordaz', 'Porlamar', 'L', 3, Rs)  -> lista de rutas validas el lunes
+% buscar_rutas('Valencia', 'Porlamar', 'Mi', 2, Rs)  -> Rs = [] (Vlo#9 no opera miercoles)
