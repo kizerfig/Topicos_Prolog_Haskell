@@ -76,3 +76,32 @@ buscar_rutas(Origen, Destino, Dia, Max_Escalas, Todas_Las_Rutas) :-
 
 % buscar_rutas('Pto Ordaz', 'Porlamar', 'L', 3, Rs)  -> lista de rutas validas el lunes
 % buscar_rutas('Valencia', 'Porlamar', 'Mi', 2, Rs)  -> Rs = [] (Vlo#9 no opera miercoles)
+
+
+% ----------------------------------------------------------------------------
+% PRUEBAS MANUALES
+% Cargar primero: ?- cargar_vuelos_defecto.
+% Luego ejecutar cada consulta por separado en el REPL.
+% ----------------------------------------------------------------------------
+
+% TEST 1: Vuelo directo disponible (Vlo#1 es Diario)
+% ?- buscar_rutas('Pto Ordaz', 'Maiquetia', 'L', 2, Rs), length(Rs, N).
+% Esperado: N >= 1
+
+% TEST 2: Ruta con escala, lunes
+% Vlo#1 sale 07:00 llega 08:00, Vlo#2 sale 09:00 -> 09:00 >= 08:00+45=08:45 -> cumple TMC
+% ?- buscar_rutas('Pto Ordaz', 'Porlamar', 'L', 3, Rs), length(Rs, N).
+% Esperado: N = 3
+
+% TEST 3: Sin rutas por restriccion de dia
+% Vlo#9 Valencia->Porlamar solo opera L-S-D, no miercoles
+% ?- buscar_rutas('Valencia', 'Porlamar', 'Mi', 2, Rs).
+% Esperado: Rs = []
+
+% TEST 4: Solo vuelo directo (Max_Escalas = 0)
+% ?- buscar_rutas('Pto Ordaz', 'Maiquetia', 'L', 0, Rs), length(Rs, N).
+% Esperado: N = 1 (solo Vlo#1 directo)
+
+% TEST 5: Control de ciclos (no debe ciclar aunque haya vuelos de ida/vuelta)
+% ?- buscar_rutas('Pto Ordaz', 'Maracaibo', 'L', 5, Rs), length(Rs, N).
+% Esperado: N finito (sin loop infinito)
