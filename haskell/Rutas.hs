@@ -2,7 +2,9 @@ module Rutas where
 
 import Tipos
 
---Compatibilidad de dia: Verifica si el vuelo opera el dia solicitado (Diario aplica siempre)
+--Modulo 2: Busqueda de rutas con restricciones de dia, TMC, ciclos y escalas
+
+--Verifica si el vuelo opera el dia solicitado (Diario aplica siempre)
 diaCompatible :: Dia -> Vuelo -> Bool
 diaCompatible _   v | Diario `elem` dias v = True
 diaCompatible dia v = dia `elem` dias v
@@ -32,6 +34,7 @@ dfs grafo dst dia tmc escalas (actual:visitados) ultimaLlegada =
 dfs _ _ _ _ _ [] _ = []
 
 --Recolecta todas las rutas validas entre org y dst
+--maxEscalas = Nothing para sin limite, Just k para maximo k escalas intermedias
 buscarRutas :: Grafo -> Ciudad -> Ciudad -> Dia -> Maybe Int -> TMC -> [Ruta]
 buscarRutas grafo org dst dia maxEscalas tmc =
     let limite = case maxEscalas of

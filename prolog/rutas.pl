@@ -43,6 +43,10 @@ buscar_ruta_dfs(Ciudad_Actual, Destino, Dia, Ciudades_Visitadas, TMC, Escalas_Re
                     [Ciudad_Siguiente | Ciudades_Visitadas], TMC, Nuevas_Escalas, Llegada, Resto_Ruta).
 
 %Recolecta todas las rutas validas entre Origen y Destino con findall
+%Si MaxEscalas es -1 (sin limite), main.pl lo envia cuando el usuario no especifica
+buscar_rutas(Origen, Destino, Dia, -1, Todas_Las_Rutas) :- !,
+    buscar_rutas(Origen, Destino, Dia, 99, Todas_Las_Rutas).
+
 buscar_rutas(Origen, Destino, Dia, Max_Escalas, Todas_Las_Rutas) :-
     obtener_tmc(TMC),
     Limite_Saltos is Max_Escalas + 1,
