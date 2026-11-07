@@ -1,0 +1,19 @@
+# Haskell compiled and intermediate files
+*.o
+*.hi
+*.dyn_o
+*.dyn_hi
+
+# Haskell build artifacts and executables
+*.exe
+LogiExpressCLI
+dist/
+dist-newstyle/
+.stack-work/
+
+# System and editor temporary files
+*~
+*.swp
+.DS_Store
+Thumbs.db
+
